@@ -1,8 +1,8 @@
 //The solution of the problem called "Two Sum".
 import java.util.Scanner;
-import java.util.Arrays;
+import java.util.Arrays; //Arrays needed for manipulating input string into array.
 
-public class Solution{
+public class TwoSum {
 
     public static int[] twoSum(int[] nums, int target){
 
@@ -45,11 +45,15 @@ public class Solution{
         System.out.println("nums =");
         arrayInput = input.nextLine();
 
-        arrayInput = arrayInput.replaceAll("\\[|\\]", "").trim();
+        arrayInput = arrayInput.replaceAll("\\[|\\]", "").trim(); //Removing [ and ] from string and removing whitespaces.
 
-        String[] parts = arrayInput.split(",");
+        String[] parts = arrayInput.split(",");//Splitting the string at each comma and putting the elements into string array.
 
         numberArray = Arrays.stream(parts).map(String::trim).mapToInt(Integer::parseInt).toArray();
+        /*stream(parts): creates a stream from the string array called parts.
+        * map(String::trim): applies trim() to each string element to remove whitespaces.
+        * mapToInt(Integer::parseInt): converts each string to an integer.
+        * toArray(): collect the results into an array. This numberArray is an integer array currently.*/
 
         System.out.println("target =");
 
@@ -57,7 +61,7 @@ public class Solution{
 
         answer = twoSum(numberArray, target);
 
-        System.out.println(Arrays.toString(answer));
+        System.out.println(Arrays.toString(answer)); //Turns the array into string.
 
     }
 
