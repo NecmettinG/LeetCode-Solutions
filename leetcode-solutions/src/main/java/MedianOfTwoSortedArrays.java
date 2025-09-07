@@ -5,46 +5,56 @@ public class MedianOfTwoSortedArrays{
         int[] array1 = nums1;
         int[] array2 = nums2;
 
-        if (nums1.length > nums2.length) {
+        if(array1.length > array2.length){
+
             array1 = nums2;
             array2 = nums1;
         }
 
-        int m = array1.length;
-        int n = array2.length;
+        int total = (array1.length) + (array2.length);
+        int half = total/2;
+
         int left = 0;
-        int right = m;
+        int right = array1.length;
 
-        while (left <= right) {
-            int partition1 = (left + right) / 2;
-            int partition2 = (m + n + 1) / 2 - partition1;
+        double answer;
 
-            double maxLeft1 = (partition1 == 0) ? Double.NEGATIVE_INFINITY : array1[partition1 - 1];
-            double maxLeft2 = (partition2 == 0) ? Double.NEGATIVE_INFINITY : array2[partition2 - 1];
+        while(left <= right){
+            int medium1 = (left+right)/2;
+            int medium2 = half - medium1;
 
-            double minRight1 = (partition1 == m) ? Double.POSITIVE_INFINITY : array1[partition1];
-            double minRight2 = (partition2 == n) ? Double.POSITIVE_INFINITY : array2[partition2];
+            double array1Left = (medium1 > 0) ? array1[medium1-1] : Double.NEGATIVE_INFINITY;
+            double array1Right = (medium1 < array1.length) ? array1[medium1] : Double.POSITIVE_INFINITY;
+            double array2Left = (medium2 > 0) ? array2[medium2-1] : Double.NEGATIVE_INFINITY;
+            double array2Right = (medium2 < array2.length) ? array2[medium2] : Double.POSITIVE_INFINITY;
 
-            if (maxLeft1 <= minRight2 && maxLeft2 <= minRight1) {
-                if ((m + n) % 2 == 0) {
-                    return (Math.max(maxLeft1, maxLeft2) + Math.min(minRight1, minRight2)) / 2.0;
+            if(array1Left <= array2Right && array2Left <= array1Right){
+
+                if(total % 2 == 1){
+
+                    answer = Math.min(array1Right, array2Right);
+                    return answer;
                 }
 
-                else {
-                    return Math.max(maxLeft1, maxLeft2);
+                else{
+
+                    answer = (Math.min(array1Right, array2Right) + Math.max(array1Left, array2Left)) / 2.0;
+                    return answer;
                 }
             }
 
-            else if (maxLeft1 > minRight2) {
-                right = partition1 - 1;
+            else if(array1Left > array2Right){
+
+                right = medium1 - 1;
             }
 
-            else {
-                left = partition1 + 1;
+            else{
+
+                left = medium1 + 1;
             }
         }
-
         return 0;
+
     }
 
     public static void main(String[] args){
